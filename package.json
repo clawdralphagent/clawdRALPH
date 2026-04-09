@@ -1,0 +1,92 @@
+{
+  "name": "clawdralph",
+  "version": "0.1.0",
+  "description": "The Autonomous Multi-Channel AI Development Agent",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "clawdralph": "dist/entry.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsx watch src/entry.ts",
+    "build": "tsc && node scripts/post-build.js",
+    "start": "node dist/entry.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist coverage",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "ai",
+    "assistant",
+    "claude",
+    "anthropic",
+    "telegram",
+    "whatsapp",
+    "slack",
+    "discord",
+    "autonomous",
+    "development",
+    "agent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@hono/node-server": "^1.19.9",
+    "better-sqlite3": "^12.6.2",
+    "chalk": "^5.4.0",
+    "commander": "^14.0.0",
+    "discord.js": "^14.25.1",
+    "dotenv": "^16.4.7",
+    "grammy": "^1.39.3",
+    "hono": "^4.11.6",
+    "json5": "^2.2.3",
+    "openai": "^6.16.0",
+    "ora": "^8.1.0",
+    "sqlite-vec": "^0.1.7-alpha.2",
+    "uuid": "^13.0.0",
+    "ws": "^8.19.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.10.0",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.40.0"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,87 @@
+# clawdRALPH Docker Compose Configuration
+# Run: docker-compose up -d
+
+version: '3.8'
+
+services:
+  # Main clawdRALPH gateway service
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clawdralph-gateway
+    restart: unless-stopped
+    ports:
+      - "18789:18789"  # Gateway WebSocket/HTTP
+      - "3000:3000"    # Dashboard (if enabled)
+    volumes:
+      # Persistent data directory
+      - clawdralph-data:/data
+      # Mount local config (optional)
+      - ./config.json:/data/config.json:ro
+      # Mount workspaces for development access
+      - ${HOME}/projects:/workspaces:rw
+    environment:
+      - NODE_ENV=production
+      - CLAWDRALPH_DATA_DIR=/data
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:18789/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - clawdralph-network
+
+  # Optional: Ollama for local AI models
+  ollama:
+    image: ollama/ollama:latest
+    container_name: clawdralph-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - clawdralph-network
+    profiles:
+      - local-ai
+
+  # Optional: Development sandbox container
+  sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile.sandbox
+    container_name: clawdralph-sandbox
+    restart: unless-stopped
+    volumes:
+      - sandbox-workspaces:/workspaces
+    environment:
+      - NODE_ENV=development
+    networks:
+      - clawdralph-network
+    profiles:
+      - sandbox
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=512M,mode=1777
+
+volumes:
+  clawdralph-data:
+    driver: local
+  ollama-models:
+    driver: local
+  sandbox-workspaces:
+    driver: local
+
+networks:
+  clawdralph-network:
+    driver: bridge

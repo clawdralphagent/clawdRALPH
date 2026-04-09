@@ -1,0 +1,40 @@
+# clawdRALPH Sandbox Dockerfile
+# Isolated environment for running untrusted code during development loops
+
+FROM node:25-alpine
+
+WORKDIR /workspace
+
+# Install common development tools
+RUN apk add --no-cache \
+    git \
+    python3 \
+    py3-pip \
+    make \
+    g++ \
+    curl \
+    jq \
+    bash
+
+# Install global npm tools commonly needed
+RUN npm install -g \
+    typescript \
+    tsx \
+    vitest \
+    eslint \
+    prettier
+
+# Create non-root user
+RUN addgroup -g 1000 -S sandbox && \
+    adduser -S sandbox -u 1000 -G sandbox
+
+# Set up workspace
+RUN mkdir -p /workspaces && chown sandbox:sandbox /workspaces
+
+# Switch to non-root user
+USER sandbox
+
+WORKDIR /workspaces
+
+# Default shell
+CMD ["/bin/bash"]
