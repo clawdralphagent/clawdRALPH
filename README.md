@@ -4,7 +4,7 @@
 
 clawdRALPH combines the powerful multi-channel messaging infrastructure of **Clawdbot** with the autonomous iterative development loop of **Ralph** to create a unified platform for AI-driven software development accessible from anywhere.
 
-[![CI](https://github.com/clawdralphagent/clawdRALPH/actions/workflows/ci.yml/badge.svg)](https://github.com/lalomorales22/clawdRALPH/actions/workflows/ci.yml)
+[![CI](https://github.com/clawdralphagent/clawdRALPH/actions/workflows/ci.yml/badge.svg)](https://github.com/clawdralphagent/clawdRALPH/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-22+-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
@@ -102,7 +102,7 @@ clawdRALPH is a local-first, multi-channel AI development assistant that:
 
 ```bash
 # Clone the repository
-git clone https://github.com/lalomorales22/clawdRALPH.git
+git clone https://github.com/clawdralphagent/clawdRALPH.git
 cd clawdRALPH
 
 # Install dependencies
@@ -533,5 +533,5 @@ Contributions are welcome! Please read the contributing guidelines before submit
 
 ## Support
 
-- Issues: [GitHub Issues](https://github.com/lalomorales22/clawdRALPH/issues)
-- Discussions: [GitHub Discussions](https://github.com/lalomorales22/clawdRALPH/discussions)
+- Issues: [GitHub Issues](https://github.com/clawdralphagent/clawdRALPH/issues)
+- Discussions: [GitHub Discussions](https://github.com/clawdralphagent/clawdRALPH/discussions)
