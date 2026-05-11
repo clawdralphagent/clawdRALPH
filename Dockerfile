@@ -4,7 +4,7 @@
 # ==============================================================================
 # Stage 1: Build the application
 # ==============================================================================
-FROM node:25-alpine AS builder
+FROM node:26-alpine AS builder
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN npm run build
 # ==============================================================================
 # Stage 2: Build the web dashboard
 # ==============================================================================
-FROM node:25-alpine AS web-builder
+FROM node:26-alpine AS web-builder
 
 WORKDIR /app/web
 
@@ -47,7 +47,7 @@ RUN npm run build
 # ==============================================================================
 # Stage 3: Production image
 # ==============================================================================
-FROM node:25-alpine AS production
+FROM node:26-alpine AS production
 
 WORKDIR /app
 
